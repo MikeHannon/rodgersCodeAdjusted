@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Pokes</title>
+	</head>
+	<body>
+		<h1>Welcome, {{request.session.name}}!</h1>
+		<a href="{% url 'home' %}"></a>
+		<h2>People who have poked you</h2>
+		{% for eachpoke in poke %}
+			{% if eachpoke.user2.id == request.session.id %}
+			<p> {{eachpoke.user1.name}} {{eachpoke.poke}} </p>
+			{% endif %}
+		{% endfor %}
+		<h2>People you may want to poke:</h2>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Alias</th>
+					<th>Email Address</th>
+					<th>Poke History</th>
+					<th>Action</th>
+				</tr>
+				{% for u in user %}
+					{% if u.id != request.session.id %}
+						<tr>
+							<td>{{ u.name }}</td>
+							<td>{{ u.alias }}</td>
+							<td>{{ u.email }}</td>
+
+
+							<td>
+								{% for pokeid, poke in pokes.iteritems %}
+								{% if pokeid == u.id %}
+									{{poke.poke__sum}}
+								{% endif %}
+								{% endfor%}
+
+							</td>
+							<td><form action="{% url 'poke' id=u.id %}"><input type="submit" value="poke"></form></td>
+						</tr>
+					{% endif %}
+				{% endfor %}
+			</thead>
+		</table>
+	</body>
+</html>

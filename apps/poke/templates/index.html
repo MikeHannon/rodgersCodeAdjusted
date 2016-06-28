@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Login and Registration</title>
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+		<script>
+			$(function(){
+				$('#datepicker').datepicker();
+			});
+		</script>
+	</head>
+	<body>
+		<h1>Welcome!</h1>
+		<div class='registration'>
+			<h1>Registration</h1>
+			<form action='/register' method='POST'>
+				{% csrf_token %}
+				<fieldset>
+					<legend>Register</legend>
+					<p>Name: <input type="text" name="name"></p>
+					<p>Alias: <input type="text" name="alias"></p>
+					<p>Email: <input type="text" name="email"></p>
+					<p>Password: <input type="password" name="password"></p>
+					<p>Confirm Password: <input type="password" name="confirm_password"></p>
+<!-- 					<p>Date of Birth: <input type="text" id="datepicker" name="bday" placeholder ='mm/dd/yyyy'></p>
+ -->					<p><input type="submit" value="register"></p>
+				</fieldset>
+			</form>
+			{% for key, value in errors.items %}
+				<p>{{ value }}</p>
+			{% endfor %}
+		</div>
+		<div class='login'>
+			<h1>Login</h1>
+			<form action='/login' method='POST'>
+				{% csrf_token %}
+				<fieldset>
+					<legend>Login</legend>
+					<p>Email: <input type="text" name="email"></p>
+					<p>Password: <input type="password" name="password"></p>
+					<p><input type="submit" value="Login"></p>
+				</fieldset>
+			</form>
+			{% for key, value in login.items %}
+				<p>{{ value }}</p>
+			{% endfor%}
+		</div>
+	</body>
+</html>
